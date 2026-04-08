@@ -12,14 +12,14 @@ export const useTransactions = () => {
     );
 
     watch(transactions, (newVal) => {
-        localStorage.setItem('transactions', JSON.stringify(newVal));
+        localStorage.setItem("transactions", JSON.stringify(newVal));
     }, { deep: true });
 
     const addTransaction = (text: string, amount: number) => {
         const newTransaction: Transaction = {
-            id: Date.now().toString(),
+            id: Date.now().toString(), 
             text,
-            amount
+            amount,
         };
         transactions.value.push(newTransaction);
     };
@@ -39,11 +39,9 @@ export const useTransactions = () => {
     });
 
     const expense = computed(() => {
-        return Math.abs(
-            transactions.value
-                .filter((t) => t.amount < 0)
-                .reduce((acc, t) => acc + t.amount, 0)
-        );
+        return transactions.value 
+            .filter((t) => t.amount < 0)
+            .reduce((acc, t) => acc + t.amount, 0);
     });
 
     return {
